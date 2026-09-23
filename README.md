@@ -112,4 +112,6 @@ báo Lab Coach.
 | `templates/` | Mẫu `make init` và `make profile` chép vào `submission/` |
 | `reference/` | Rỗng lúc phát; `make install-reference` giải nén gói Lab Coach phát vào đây |
 
+Repo này là bản phát hành từ `learner/` của pilot Day 8. Ảnh `cards/img/d01_reference.jpg` chỉ là lời giải của **frame demo d01** trong card bốn trạng thái; đáp án các frame bài tập và key honeypot không nằm trong repo học viên. Lab Coach phát hai gói reference theo các mốc khóa bài trong [GUIDE.md](GUIDE.md).
+
 Nguồn ảnh, model và giấy phép: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
