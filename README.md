@@ -1,7 +1,7 @@
 # Day 8 — Thẩm định pre-label và xếp hạng active learning
 
-**Dành cho học viên · 240 phút trên lớp · làm cá nhân.** Fork repo này, làm bài trong fork, push kết quả rồi nộp link fork
-theo cách Lab Coach thông báo.
+**Dành cho học viên · 240 phút trên lớp · làm cá nhân.** Tạo repo **private** của bạn từ template này, làm bài trong
+đó, push kết quả rồi nộp link repo theo cách Lab Coach thông báo.
 
 Pre-label đổi việc gán nhãn từ **vẽ nhãn** sang **thẩm định nhãn máy vẽ**. Hôm nay bạn làm cả hai trên cùng kiểu cảnh
 giao thông, rồi đo xem cách làm của mình thay đổi ra sao. Sau đó bạn chọn frame nên gửi đi gán nhãn tiếp khi ngân sách
@@ -23,7 +23,11 @@ nào không chứng minh điều gì. Làm đúng như bình thường bạn v�
 
 Cần: Python ≥ 3.8 (không cài thêm thư viện), trình duyệt mở được CVAT của lớp.
 
-1. Fork repo, tải fork về máy, mở terminal trong thư mục repo.
+1. Trên trang repo này bấm **Use this template → Create a new repository**, chủ sở hữu là tài khoản của bạn, chọn
+   **Private**. Vào repo mới: **Settings → Collaborators → Add people**, thêm tài khoản GitHub Lab Coach thông báo
+   (không thêm thì Lab Coach không xem được bài). Clone repo của bạn về máy, mở terminal trong thư mục repo.
+   Mở link repo mà GitHub báo 404: tài khoản của bạn chưa được cấp quyền đọc (hoặc bạn chưa nhận lời mời trong email)
+   — báo Lab Coach.
 2. Chạy:
    ```bash
    make verify-data
@@ -89,8 +93,8 @@ báo Lab Coach.
 
 - **Khóa trước, xem đáp án sau.** Reference chỉ phát sau khi bạn gửi mã khóa. Sau `make lock`, các file đã khóa không sửa
   nữa; mọi lệnh sau kiểm lại mã và báo lỗi nếu file đổi.
-- **Không push `reference/`.** `.gitignore` đã chặn thư mục này. Bạn cùng lớp chưa khóa có thể thấy đáp án trong fork
-  công khai của bạn.
+- **Không push `reference/`.** `.gitignore` đã chặn thư mục này. Repo của bạn phải để private; chia sẻ đáp án
+  cho bạn cùng lớp chưa khóa làm hỏng phép đo của họ.
 - **Không sửa `data/`.** `make verify-data` kiểm từng file theo `data/SHA256SUMS`.
 - **Ca card không nói tới:** ghi `escalated` vào `decision_log.csv` và hỏi Lab Coach. Không tự đặt luật.
 - **Debrief không gắn tên.** Không hỏi bạn khác ra số nào.
