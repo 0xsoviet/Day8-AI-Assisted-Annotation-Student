@@ -1,6 +1,6 @@
 # Rubric Lab #08 — 100 điểm
 
-**Dành cho học viên và Lab Coach.** Đây là thang 100 điểm cho **bài lab Day 8** do Lab Coach thiết kế. Nó chấm bằng chứng và lập luận trong [gói nộp](README.md#gói-nộp); không tự đặt ngưỡng đạt/trượt của chương trình. GV/VinUni xác nhận việc dùng điểm này trong đánh giá chính thức, hạn nộp và quy tắc nộp muộn.
+**Dành cho học viên.** Đây là thang 100 điểm mô tả bằng chứng và lập luận trong [gói nộp](README.md#gói-nộp). Sau khi bạn nộp bài, **hệ thống chấm bài** theo rubric được cấu hình; Lab Coach không chấm tay hay tự điều chỉnh điểm. Rubric này không đặt ngưỡng đạt/trượt của chương trình; hạn nộp và quy tắc nộp muộn theo thông báo của GV/VinUni.
 
 Điểm **không tăng hoặc giảm theo độ lớn** của accept rate, shared-miss, residual error, số lỗi honeypot bắt được, hay proxy active learning. Các số ấy là dữ liệu để bạn phân tích. Một số thấp hoặc cao vẫn có thể đạt điểm phần phân tích nếu được tính đúng, giải thích đúng và nêu đúng giới hạn. [Card stretch](cards/stretch-card.md) là tùy chọn, không cộng điểm và không thay thế bài chính.
 
@@ -16,10 +16,10 @@
 | **6. Phản tư dựa trên bài của mình** | `reflection.md` trả lời đủ 4 câu trong [GUIDE](GUIDE.md), mỗi câu có số của chính bạn và lập luận gắn với bài: **8**. Nêu điều những số đó chưa chứng minh, không suy kết quả cá nhân từ số gộp của lớp: **2**. | **10** |
 | **Tổng** | | **100** |
 
-## Cách cho điểm và nhận phản hồi
+## Nộp bài và nhận kết quả chấm
 
-Lab Coach cho từ **0 đến điểm tối đa của từng phần nhỏ** trong bảng, ghi ngắn gọn bằng chứng đã thấy và lý do trừ điểm. Thiếu file hoặc file không mở/kiểm được thì phần bằng chứng tương ứng được **0 điểm**; phần khác vẫn được chấm theo bằng chứng có thật. Nếu lỗi CVAT hoặc đường dự phòng được Lab Coach xác nhận, dùng bản xuất tương đương theo [card CVAT](cards/cvat-card.md) để xem cùng tiêu chí.
+Các điểm trong bảng là **điểm tối đa** cho từng phần bằng chứng. Hệ thống chấm và trả kết quả sau khi nhận bài; file thiếu, sai dạng hoặc không mở được được xử lý theo quy tắc của hệ thống. Lab Coach hỗ trợ khi có sự cố CVAT hoặc cần dùng [đường dự phòng](cards/cvat-card.md); việc xử lý ngoại lệ của bài nộp phải theo quy trình của hệ thống, không phải quyết định cho điểm của Lab Coach.
 
 Mục 1–4 trong [gói nộp](README.md#gói-nộp) là bằng chứng tối thiểu để khóa và nhận gói 1; mục 5–8 vẫn là bài chính và có điểm trong thang 100. Hết giờ hoặc cần nộp bổ sung thì báo Lab Coach; thời hạn và cách xử lý điểm nộp muộn theo thông báo của GV/VinUni.
 
-Trước khi nộp, chạy `make check-submission` để tìm file thiếu hoặc sai dạng. Lệnh này **không tự chấm điểm**. Nếu bạn cho rằng reference hoặc guideline sai, ghi frame/vật/lý do để Lab Coach xem lại; không bị trừ điểm chỉ vì nêu tranh luận có căn cứ.
+Trước khi nộp, chạy `make check-submission` để tìm file thiếu hoặc sai dạng. Lệnh này **chỉ kiểm tra trên máy bạn, không phải hệ thống chấm bài**. Nếu bạn cho rằng reference hoặc guideline sai, ghi frame/vật/lý do để Lab Coach kiểm tra và chuyển ca cần xử lý theo quy trình; Lab Coach không sửa điểm trực tiếp.
