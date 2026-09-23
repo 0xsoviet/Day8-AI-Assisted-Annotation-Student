@@ -1,0 +1,7 @@
+# Gói reference do Lab Coach phát sau khi bạn khóa bài. Không push: bạn cùng lớp chưa khóa có thể thấy đáp án.
+reference/*
+!reference/.gitkeep
+
+__pycache__/
+*.pyc
+.DS_Store
