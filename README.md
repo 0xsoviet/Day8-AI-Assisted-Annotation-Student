@@ -76,7 +76,7 @@ báo Lab Coach.
 | 8 | `reflection.md` (4 câu) | Tạo khi `make profile`, bạn trả lời |
 
 `make check-submission` báo file nào thiếu hoặc sai dạng. Lệnh này không chấm điểm.
-Đọc [tiêu chí phản hồi](RUBRIC.md) để biết Lab Coach sẽ xem bằng chứng và lập luận nào; rubric này không đặt điểm hoặc ngưỡng đạt chính thức.
+Đọc [rubric 100 điểm](RUBRIC.md) để biết Lab Coach chấm bằng chứng và lập luận nào. Độ lớn của các chỉ số bias không phải điểm bài làm; rubric không đặt ngưỡng đạt/trượt chính thức.
 
 ## Card tra cứu
 

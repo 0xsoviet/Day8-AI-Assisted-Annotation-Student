@@ -122,7 +122,7 @@ Lab Coach chiếu số gộp của cả lớp, không gắn tên. Luật: không
 
 1. Trả lời 4 câu trong `submission/reflection.md`. Mỗi câu có ≥ 1 số của bạn và một câu "số này không chứng minh …".
 2. `make check-submission` → báo thiếu gì. Lệnh này **không** chấm điểm.
-3. Đối chiếu [tiêu chí phản hồi](RUBRIC.md), rồi nộp theo cách Lab Coach thông báo.
+3. Đối chiếu [rubric 100 điểm](RUBRIC.md), rồi nộp theo cách Lab Coach thông báo.
 
 ## Phút 230–240 — Dự phòng
 

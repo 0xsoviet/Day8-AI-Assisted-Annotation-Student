@@ -1,32 +1,25 @@
-# Tiêu chí phản hồi Lab #08
+# Rubric Lab #08 — 100 điểm
 
-**Dành cho học viên và Lab Coach.** Đây là rubric phản hồi quá trình học trên bộ frame của lab, không phải thang điểm hoặc ngưỡng đạt/trượt chính thức. GV/VinUni quyết định cách tính điểm, trọng số và hạn nộp nếu bài này được dùng để đánh giá chính thức.
+**Dành cho học viên và Lab Coach.** Đây là thang 100 điểm cho **bài lab Day 8** do Lab Coach thiết kế. Nó chấm bằng chứng và lập luận trong [gói nộp](README.md#gói-nộp); không tự đặt ngưỡng đạt/trượt của chương trình. GV/VinUni xác nhận việc dùng điểm này trong đánh giá chính thức, hạn nộp và quy tắc nộp muộn.
 
-Lab Coach xem **bằng chứng bạn đã áp dụng luật, kiểm tra output, giải thích sai khác và sửa lại**. Giá trị accept rate, số lỗi honeypot bắt được, shared-miss hoặc proxy active learning **không tự quyết định** mức phản hồi. Một con số thấp hoặc cao đều có thể là dữ liệu học tập hữu ích nếu bạn ghi đúng và giải thích đúng giới hạn.
+Điểm **không tăng hoặc giảm theo độ lớn** của accept rate, shared-miss, residual error, số lỗi honeypot bắt được, hay proxy active learning. Các số ấy là dữ liệu để bạn phân tích. Một số thấp hoặc cao vẫn có thể đạt điểm phần phân tích nếu được tính đúng, giải thích đúng và nêu đúng giới hạn. [Card stretch](cards/stretch-card.md) là tùy chọn, không cộng điểm và không thay thế bài chính.
 
-## Cách đọc rubric
+## Bảng chấm
 
-| Mức phản hồi | Nghĩa |
-|---|---|
-| **Có bằng chứng rõ** | Có file cần thiết, quyết định truy được về frame/box và luật, giải thích khớp dữ liệu, nêu giới hạn phù hợp. |
-| **Cần làm rõ hoặc sửa lại** | Có làm nhưng thiếu lý do, số liệu không truy được, hoặc kết luận vượt quá điều dữ liệu cho thấy; sửa đúng phần Lab Coach chỉ ra. |
-| **Chưa có bằng chứng** | Thiếu file, file không mở/kiểm được, hoặc chưa thể thấy hành động cần đánh giá. Báo Lab Coach nếu do lỗi công cụ hay hết giờ. |
+| Tiêu chí | Bằng chứng và cách phân điểm | Điểm tối đa |
+|---|---|---:|
+| **1. Gán nhãn và thẩm định theo guideline** | `manual_X.xml` hoặc `manual_Y.xml` và `assisted.xml` mở được, đúng tập frame; frame chưa kịp duyệt được gắn `not_reviewed` đúng cách: **8**. Box đã duyệt đúng phạm vi, class và quy tắc trong [guideline](cards/guideline-card.md); ca mơ hồ được ghi `escalated` thay vì tự đặt luật: **10**. `decision_log.csv` có ít nhất 5 ca của bạn ngoài 4 dòng demo, mỗi ca truy được frame/vật, quyết định và lý do theo luật: **7**. | **25** |
+| **2. Bằng chứng làm độc lập và khóa trước khi xem reference** | `states.json` và `prediction.md` có đủ nội dung, dự đoán ghi trước khi mở đáp án: **4**. `lock.txt` hợp lệ, mã đã gửi Lab Coach trước gói 1; bản khóa giữ nguyên: **6**. | **10** |
+| **3. Phân tích lỗi và giới hạn phép đo** | `error_profile.csv` và `interpretation.md` phân biệt lỗi AI ban đầu, lỗi còn lại sau thẩm định và lỗi mới; so dự đoán với thực tế: **6**. Ba phát hiện có class, lát, tử số/mẫu số và hành động phù hợp: **9**. Nêu giới hạn của batch nhỏ, ô ít vật và từng chỉ số; không coi accept rate là độ đúng: **5**. | **20** |
+| **4. Rà lỗi và sửa lại có lý do** | `rework_log.csv` ghi `cause`, `action` và lý do truy được cho từng lỗi cần xem; `reference_disputed` có lý do cụ thể nếu có tranh luận: **8**. `assisted_rework.xml` mở được và thể hiện bản sau sửa; trường hợp không có lỗi cần sửa, giữ bản export và ghi rõ lý do: **7**. | **15** |
+| **5. Xếp hạng frame theo ngân sách** | `ranking.csv` đủ 50 frame, thứ tự và chi phí không vượt ngân sách: **5**. Điểm box/frame, cách gộp `sum`/`mean`/`max` và lựa chọn theo kịch bản chi phí được giải thích: **5**. `ranking_rationale.md` giải thích top 5, loại trùng và ngoại lai bằng ảnh/dữ liệu: **6**. `peer_check.md` ghi góp ý cùng quyết định sửa/giữ; `lock_ranking.txt` có trước gói 2: **4**. | **20** |
+| **6. Phản tư dựa trên bài của mình** | `reflection.md` trả lời đủ 4 câu trong [GUIDE](GUIDE.md), mỗi câu có số của chính bạn và lập luận gắn với bài: **8**. Nêu điều những số đó chưa chứng minh, không suy kết quả cá nhân từ số gộp của lớp: **2**. | **10** |
+| **Tổng** | | **100** |
 
-Ba mức này giúp phản hồi từng tiêu chí; chúng **không quy đổi thành điểm**.
+## Cách cho điểm và nhận phản hồi
 
-## Tiêu chí chung cho mọi học viên
+Lab Coach cho từ **0 đến điểm tối đa của từng phần nhỏ** trong bảng, ghi ngắn gọn bằng chứng đã thấy và lý do trừ điểm. Thiếu file hoặc file không mở/kiểm được thì phần bằng chứng tương ứng được **0 điểm**; phần khác vẫn được chấm theo bằng chứng có thật. Nếu lỗi CVAT hoặc đường dự phòng được Lab Coach xác nhận, dùng bản xuất tương đương theo [card CVAT](cards/cvat-card.md) để xem cùng tiêu chí.
 
-| Tiêu chí | Bằng chứng cần nhìn thấy | Dấu hiệu cần làm rõ hoặc sửa lại |
-|---|---|---|
-| **1. Áp dụng guideline khi làm tay và thẩm định AI** | `manual_X.xml` hoặc `manual_Y.xml`, `assisted.xml`; box đúng phạm vi và class theo [guideline](cards/guideline-card.md). `decision_log.csv` có ít nhất 5 ca của bạn, ngoài 4 dòng demo `d01`, ghi frame, vật, quyết định và luật/lý do. | Bỏ qua xe để kịp giờ; giữ/xóa/sửa box mà không thể chỉ ra luật hoặc đặc điểm nhìn thấy; tự đặt luật cho ca mơ hồ thay vì ghi `escalated`. |
-| **2. Giữ thứ tự làm độc lập → khóa → so reference** | `states.json`, `prediction.md`, `lock.txt` được tạo trước khi nhận gói 1; mã khóa gửi Lab Coach. Bản đã khóa giữ nguyên khi làm vòng sau. | Mở reference trước khi khóa, sửa file đã khóa, hoặc thiếu dấu vết thời điểm khóa. Nếu xảy ra lỗi, báo Lab Coach và ghi rõ. |
-| **3. Đọc lỗi và giới hạn của phép đo** | `error_profile.csv`, `interpretation.md`: so dự đoán với thực tế; ba phát hiện nêu class, lát, tử số/mẫu số và hành động phù hợp. Phân biệt lỗi AI ban đầu, lỗi còn lại sau thẩm định và lỗi mới do mình tạo. | Coi accept rate là độ đúng; kết luận từ ô chỉ 1–2 xe; xem một batch nhỏ là kết luận chung về model hoặc con người. |
-| **4. Rà lại và sửa có lý do** | `rework_log.csv` ghi `cause` và `action` cho từng lỗi cần xem; `assisted_rework.xml` cho thấy bản sau sửa. `reference_disputed` có lý do cụ thể là phản hồi hợp lệ. | Chỉ đổi box cho giống reference mà không ghi nguyên nhân, hoặc giữ nguyên một ca bất đồng mà không giải thích. |
-| **5. Chọn frame trong ngân sách và qua bạn cặp kiểm** | `ranking.csv` đủ 50 frame; `ranking_rationale.md` giải thích điểm, cách gộp, chi phí, loại trùng/ngoại lai và top 5; `peer_check.md` ghi góp ý và quyết định sửa/giữ; `lock_ranking.txt` khóa trước gói 2. | Chỉ lấy top điểm mà không xét trùng cảnh, ngoại lai hoặc ngân sách; xem proxy `al-eval` là bằng chứng model đã học tốt hơn. |
-| **6. Phản tư từ bằng chứng của mình** | `reflection.md` trả lời 4 câu trong [GUIDE](GUIDE.md#phút-220230--phản-tư-và-nộp), mỗi câu có ít nhất một số của bạn và một giới hạn của số đó. | Chép kết luận chung không gắn với bài của mình, hoặc diễn giải số gộp của lớp như kết quả cá nhân. |
+Mục 1–4 trong [gói nộp](README.md#gói-nộp) là bằng chứng tối thiểu để khóa và nhận gói 1; mục 5–8 vẫn là bài chính và có điểm trong thang 100. Hết giờ hoặc cần nộp bổ sung thì báo Lab Coach; thời hạn và cách xử lý điểm nộp muộn theo thông báo của GV/VinUni.
 
-## Hoàn tất và nhận phản hồi
-
-Mọi người làm cùng một bài chính và dùng cùng tiêu chí. Mục 1–4 trong [gói nộp](README.md#gói-nộp) là bằng chứng tối thiểu cần có trước khi nhận gói 1; mục 5–8 vẫn thuộc bài chính. Nếu hết giờ, báo Lab Coach phần còn thiếu và thời điểm có thể bổ sung. [Card stretch](cards/stretch-card.md) chỉ làm sau bài chính, không thay thế tiêu chí nào ở trên.
-
-Trước khi nộp, chạy `make check-submission` để tìm file thiếu hoặc sai dạng. Lệnh này **không đánh giá chất lượng quyết định**. Khi nhận góp ý, sửa phần chưa rõ và ghi lý do; nếu reference hoặc guideline có vẻ sai, ghi ca cụ thể để Lab Coach xem lại.
+Trước khi nộp, chạy `make check-submission` để tìm file thiếu hoặc sai dạng. Lệnh này **không tự chấm điểm**. Nếu bạn cho rằng reference hoặc guideline sai, ghi frame/vật/lý do để Lab Coach xem lại; không bị trừ điểm chỉ vì nêu tranh luận có căn cứ.
