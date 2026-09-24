@@ -13,7 +13,7 @@ help:
 	@echo "  make install-reference ZIP=<file>   cài gói Lab Coach phát sau khi bạn khóa"
 	@echo "  make profile                        error profile sau khi cài gói 1 (đọc cards/after-lock-card.md)"
 	@echo "  make rework                         so bản khóa với submission/assisted_rework.xml"
-	@echo "  make frame-scores                   (tùy chọn) bảng 1 − conf gộp sum/mean/max cho 50 frame pool"
+	@echo "  make frame-scores                   điểm model + bản nháp ranking.csv (chỉ khi rank còn trống)"
 	@echo "  make lock-ranking                   kiểm + khóa submission/ranking.csv"
 	@echo "  make al-eval                        proxy của batch đã chọn (sau khi cài gói 2)"
 	@echo "  make check-submission               kiểm gói nộp đủ và đúng dạng (không chấm điểm)"

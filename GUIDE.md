@@ -91,6 +91,14 @@ Làm theo mục "Vòng sửa lại" của [card sau khi khóa](cards/after-lock-
 điền `cause` và `action` cho từng dòng `rework_log.csv`, sửa trong job có AI, export thành
 `submission/assisted_rework.xml`, rồi `make rework`. Không có gì để sửa: chép `assisted.xml` thành `assisted_rework.xml`.
 
+**Một ca bất đồng, làm cá nhân hoặc cùng bạn:** chọn một frame chung `c01`–`c04`, điền `case_review.md`.
+Làm cá nhân: so quyết định của chính mình trong bản đã khóa với reference gói 1. Làm cùng bạn: sau khi **cả hai đã khóa**,
+trích quyết định từ hai bản khóa để so, rồi dùng reference làm căn cứ kết luận. Cả hai cách đều cần frame/vật, quyết định ban đầu, góc nhìn thứ
+hai, bằng chứng từ guideline và quyết định sửa/giữ. Chọn cách xử lý một frame tương tự sau này: kiểm nhanh hay vẽ
+lại; nói cần bằng chứng gì trước khi cân nhắc tự chấp nhận nhãn. Đây là giả định học tập, không có nhãn nào được tự
+chấp nhận trong bài. Đồng ý nhau không tự chứng minh là đúng; nếu reference có vẻ sai, ghi `reference_disputed` với
+frame/vật/lý do.
+
 ## Phút 155–165 — Nghỉ
 
 ## Phút 165–195 — Phần (c): xếp hạng 50 frame
@@ -98,23 +106,31 @@ Làm theo mục "Vòng sửa lại" của [card sau khi khóa](cards/after-lock-
 Đọc [card pool](cards/pool-card.md) và [cost card](cards/cost-card.md) (kịch bản của bạn ghi trong `submission/info.json`).
 
 1. Scoring từng box: `1 − conf`.
-2. Gộp theo frame: `sum` / `mean` / `max`, chọn theo kịch bản chi phí. `make frame-scores` tính sẵn cả ba nếu cần.
+2. Gộp theo frame: `sum` / `mean` / `max`, chọn theo kịch bản chi phí. `make frame-scores` tính sẵn cả ba và
+   tạo `ai_priority` / `ai_suggested` theo `sum(1−conf)`. Xem top 5 gợi ý, nêu ít nhất một frame bạn giữ hoặc đổi và
+   lý do. Lệnh điền bản nháp 50 rank nếu `ranking.csv` còn trống; không ghi đè bản bạn đã sửa. Gợi ý chưa thấy vật
+   model bỏ sót, chưa loại trùng hay ngoại lai.
 3. Sampling: loại trùng (`seq_id` + `time_s`, contact sheet), gắn cờ ngoại lai.
 4. Điền `submission/ranking.csv` (50 dòng) và `submission/ranking_rationale.md` (lý do + giải thích top 5 + một câu cold start).
 
 **Checkpoint phút 180:** mọi frame đã có `frame_score`.
 
-## Phút 195–205 — Bạn cặp kiểm, khóa xếp hạng
+## Phút 195–205 — Tự kiểm hoặc cùng bạn kiểm, khóa xếp hạng
 
-1. Ghép với một bạn **khác kịch bản** (S1 ↔ S2). Đổi top-10 cho nhau. Tìm trong top-10 của bạn ấy: frame trùng cảnh,
-   ngoại lai vô ích, lý do không khớp kịch bản chi phí.
-2. Sửa `ranking.csv` nếu cần; ghi vào `submission/peer_check.md` bạn ấy tìm thấy gì và bạn sửa gì (hoặc vì sao giữ).
+1. **Làm cá nhân:** tạm ẩn rank của mình, xem lại top-10 bằng contact sheet và `pool_frames.csv`; so với gợi ý
+   `ai_suggested`. **Làm cùng bạn:** sau khi mỗi người đã xếp độc lập, đổi top-10; người kia tìm frame trùng cảnh,
+   ngoại lai, thiếu đa dạng hoặc lý do không khớp chi phí. Có thể khác kịch bản; khi so phải ghi rõ chi phí của từng
+   người, không bắt buộc ghép S1 ↔ S2.
+2. Sửa `ranking.csv` nếu cần; ghi vào `submission/peer_check.md` góc nhìn thứ hai, bằng chứng và quyết định sửa/giữ.
+   Đây là cùng một yêu cầu bằng chứng cho hai cách làm; điểm không phụ thuộc việc có bạn cặp.
 3. `make lock-ranking` → gửi mã cho Lab Coach. Lab Coach phát **gói 2**.
 4. `make install-reference ZIP=<đường dẫn gói 2>`, rồi `make al-eval`.
 
-## Phút 205–220 — Debrief cả lớp
+## Phút 205–220 — Quyết định lượt sau và debrief cả lớp
 
-Lab Coach chiếu số gộp của cả lớp, không gắn tên. Luật: không hỏi bạn khác ra số nào. Ghi một câu cho mình:
+Đọc `al_eval.json`. Điền `next_round.md`: một tín hiệu đã thấy, ba frame pool **chưa chọn** cho lượt sau, vì sao chúng
+bổ trợ nhau, và một quy tắc chọn mẫu sẽ đổi. Đây là **kế hoạch vòng hai**, chưa có nhãn mới hay model huấn luyện lại.
+Sau đó Lab Coach chiếu số gộp của cả lớp, không gắn tên. Luật: không hỏi bạn khác ra số nào. Ghi một câu cho mình:
 "lớp thường …, mình …, vì …", có số.
 
 ## Phút 220–230 — Phản tư và nộp

@@ -1,6 +1,6 @@
 # Day 8 — Thẩm định pre-label và xếp hạng active learning
 
-**Dành cho học viên · 240 phút trên lớp · làm cá nhân.** Repo mẫu này được công bố **public khi bắt đầu buổi lab**.
+**Dành cho học viên · 240 phút trên lớp · bài nộp cá nhân, có thể trao đổi theo cặp.** Repo mẫu này được công bố **public khi bắt đầu buổi lab**.
 Tạo repo bài làm **private** của riêng bạn từ repo mẫu, push kết quả rồi nộp link theo cách Lab Coach thông báo.
 
 Pre-label đổi việc gán nhãn từ **vẽ nhãn** sang **thẩm định nhãn máy vẽ**. Hôm nay bạn làm cả hai trên cùng kiểu cảnh
@@ -16,6 +16,12 @@ Bạn sẽ:
 4. **Khóa bài**, rồi mới xem reference và đọc lỗi của AI và của chính mình theo class, điều kiện, kích thước.
 5. **Sửa lại** lỗi của mình, ghi nguyên nhân từng lỗi.
 6. **Xếp hạng 50 frame** chưa gán nhãn theo thứ tự nên gửi đi gán nhãn, trong một ngân sách cố định.
+7. **Phản biện gợi ý của model** và chọn ba frame cho lượt tiếp theo từ kết quả đã xem; đây là kế hoạch, chưa huấn luyện lại model.
+
+`make frame-scores` điền sẵn **bản nháp** 50 rank theo một cách chọn của model khi bảng còn trống; bạn dùng ảnh và
+metadata để sửa. Bạn không phải gõ 50 số thứ tự từ đầu.
+
+Bạn có thể làm toàn bộ bài **một mình**. Nếu làm cùng bạn, mỗi người vẫn tự gán nhãn, tự xếp hạng và nộp repo riêng; chỉ trao đổi sau khi cả hai đã chốt quyết định độc lập. Hai cách có cùng rubric.
 
 Bài **không** chấm theo độ lớn của các con số bạn đo được. Bài xét bằng chứng và lập luận: bạn làm gì, vì sao, và con số
 nào không chứng minh điều gì. Làm đúng như bình thường bạn vẫn làm; con số thật có ích hơn con số đẹp.
@@ -28,7 +34,7 @@ nào không chứng minh điều gì. Làm đúng như bình thường bạn v�
 | **CVAT** | Vẽ tay trước, rồi duyệt box AI; máy bình thường dùng CVAT local, máy yếu dùng CVAT chương trình |
 | **Repo private của bạn** | Nhận thư mục `submission/` từ Colab, commit và push để hệ thống chấm |
 
-Thứ tự quan trọng: **tay → có AI → khóa → xem reference → sửa → xếp hạng → push**. Mỗi mốc có lệnh và dấu hiệu hoàn thành trong [GUIDE](GUIDE.md).
+Thứ tự quan trọng: **tay → có AI → khóa → xem reference → sửa → xếp hạng → tự/bạn kiểm → khóa → xem kết quả → đề xuất lượt sau → push**. Mỗi mốc có lệnh và dấu hiệu hoàn thành trong [GUIDE](GUIDE.md).
 
 ## Bắt đầu
 
@@ -53,11 +59,11 @@ Cần: trình duyệt, tài khoản Google để mở [notebook Colab](notebooks
 | 95–105 | Nghỉ | |
 | 105–115 | Export, dự đoán 3 số, `make lock` | Mã khóa gửi Lab Coach |
 | 115–135 | Cài gói 1, `make profile`, đọc lỗi | `interpretation.md` |
-| 135–155 | Sửa lại lỗi của mình | `rework_log.csv`, `assisted_rework.xml` |
+| 135–155 | Sửa lại lỗi và đối chiếu một ca khó | `rework_log.csv`, `assisted_rework.xml`, `case_review.md` |
 | 155–165 | Nghỉ | |
-| 165–195 | Xếp hạng 50 frame pool | `ranking.csv`, `ranking_rationale.md` |
-| 195–205 | Bạn cặp kiểm, `make lock-ranking`, cài gói 2, `make al-eval` | `peer_check.md` |
-| 205–220 | Debrief cả lớp | |
+| 165–195 | Xem gợi ý model, phản biện và xếp hạng 50 frame pool | `frame_scores.csv`, `ranking.csv`, `ranking_rationale.md` |
+| 195–205 | Tự kiểm hoặc cùng bạn kiểm, `make lock-ranking`, cài gói 2, `make al-eval` | `peer_check.md` |
+| 205–220 | Đề xuất lượt sau, debrief cả lớp | `next_round.md` |
 | 220–230 | Phản tư, `make check-submission`, nộp | `reflection.md` |
 | 230–240 | Dự phòng hoặc stretch | |
 
@@ -76,10 +82,10 @@ báo Lab Coach.
 | 3 | `decision_log.csv` (≥ 5 dòng của bạn) | Trong khối 2 |
 | 4 | `states.json`, `prediction.md`, `lock.txt` | `make states`, bạn điền, `make lock` |
 | 5 | `error_profile.csv`, `interpretation.md` | `make profile`, bạn viết |
-| 6 | `rework_log.csv`, `assisted_rework.xml` | `make profile`, bạn điền và export lại |
-| 7 | `ranking.csv`, `ranking_rationale.md`, `peer_check.md`, `lock_ranking.txt` | Bạn điền, `make lock-ranking` |
+| 6 | `rework_log.csv`, `assisted_rework.xml`, `case_review.md` | `make profile`, bạn đối chiếu và export lại |
+| 7 | `ranking.csv`, `ranking_rationale.md`, `peer_check.md`, `lock_ranking.txt`, `next_round.md` | Bạn điền, khóa, xem kết quả rồi đề xuất lượt sau |
 | 8 | `reflection.md` (4 câu) | Tạo khi `make profile`, bạn trả lời |
-| Thực hành AI | `ai_probe.json` | Notebook chạy YOLO trên `d01`; là bằng chứng học tập, không thêm điểm ngoài rubric 100 |
+| Thực hành AI | `ai_probe.json`, `frame_scores.csv`, `al_eval.json` | Notebook chạy YOLO trên `d01`, tạo gợi ý chọn mẫu và phản hồi; bằng chứng hỗ trợ cho mục 7 |
 
 `make check-submission` báo file nào thiếu hoặc sai dạng. Lệnh này không chấm điểm.
 Đọc [rubric 100 điểm](RUBRIC.md) để biết hệ thống sẽ chấm bằng chứng và lập luận nào sau khi bạn nộp bài. Độ lớn của các chỉ số bias không phải điểm bài làm; rubric không đặt ngưỡng đạt/trượt chính thức.

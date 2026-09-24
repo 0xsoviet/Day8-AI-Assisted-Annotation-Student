@@ -73,8 +73,7 @@ def validate_ranking(info):
 
 
 def frame_scores(scenario):
-    """Bảng hỗ trợ (đường Support): least confidence 1 − conf gộp ba cách, cộng margin nhỏ nhất cho stretch.
-    Không xếp hạng và không chọn hộ: chọn cách gộp, loại trùng, gắn cờ vẫn là việc của học viên."""
+    """Điểm model và một đề xuất cơ sở theo sum; học viên kiểm trùng, độ đa dạng và lỗi bỏ sót."""
     frames, cost = data.pool_frames(), frame_costs(scenario)
     boxes = {f: [] for f in frames}
     for r in data.pool_predictions():
@@ -88,6 +87,20 @@ def frame_scores(scenario):
                         n_boxes=len(lc), cost=cost[f], sum_lc=round(sum(lc), 4),
                         mean_lc=round(sum(lc) / len(lc), 4) if lc else 0.0, max_lc=round(max(lc), 4) if lc else 0.0,
                         min_margin=round(min(margin), 4) if margin else ""))
+    # Gợi ý cơ sở dùng đúng ngân sách nhưng chưa xét ảnh trùng, ngoại lai hay vật model bỏ sót.
+    order = sorted(out, key=lambda r: (-r["sum_lc"], r["frame_id"]))
+    suggested = set()
+    spent = 0
+    for row in order:
+        if row["sum_lc"] <= 0 or row["cost"] <= 0:
+            continue
+        if spent + row["cost"] <= budget()[scenario]["budget"]:
+            suggested.add(row["frame_id"])
+            spent += row["cost"]
+    priority = {r["frame_id"]: i for i, r in enumerate(order, 1)}
+    for row in out:
+        row["ai_priority"] = priority[row["frame_id"]]
+        row["ai_suggested"] = int(row["frame_id"] in suggested)
     return out
 
 
@@ -100,7 +113,28 @@ def cmd_frame_scores(args):
     b = budget()[info["scenario"]]["budget"]
     print(f"Đã ghi submission/frame_scores.csv: {len(rows)} frame, điểm 1 − conf gộp sum / mean / max, cột cost theo {info['scenario']} "
           f"(ngân sách {b}).")
-    print("Bảng này chưa phải xếp hạng: bạn chọn một cách gộp và nói vì sao, rồi loại trùng + gắn cờ ngoại lai trước khi lấy top.")
+    ranking_path = data.sub("ranking.csv")
+    if os.path.exists(ranking_path) and not os.path.exists(data.sub("lock_ranking.txt")):
+        current = read_ranking()
+        blank = all(not (r.get("rank") or "").strip()
+                    and not (r.get("frame_score") or "").strip()
+                    and (r.get("selected") or "").strip() in ("", "0")
+                    and (r.get("flag") or "").strip() in ("", "ok")
+                    and not (r.get("reason") or "").strip() for r in current)
+        if len(current) == len(rows) and blank:
+            by_id = {r["frame_id"]: r for r in rows}
+            with open(ranking_path, "w", newline="", encoding="utf-8") as f:
+                w = csv.DictWriter(f, fieldnames=("frame_id", "rank", "frame_score", "selected", "flag", "reason"))
+                w.writeheader()
+                for fid in sorted(by_id):
+                    suggestion = by_id[fid]
+                    w.writerow(dict(frame_id=fid, rank=suggestion["ai_priority"], frame_score=suggestion["sum_lc"],
+                                    selected=suggestion["ai_suggested"], flag="ok", reason=""))
+            print("Đã điền bản nháp ranking.csv theo gợi ý model. Hãy kiểm ảnh và sửa bản nháp trước khi khóa.")
+        else:
+            print("ranking.csv đã có quyết định của bạn; không ghi đè.")
+    print("ai_priority/ai_suggested là gợi ý từ dự đoán model theo sum, chưa loại trùng hay ngoại lai; không chép nguyên làm đáp án.")
+    print("Hãy phản biện top 5 bằng ảnh gốc, độ đa dạng và kịch bản chi phí; xe model không thấy không có điểm ở đây.")
 
 
 def fill(order, cost, b):

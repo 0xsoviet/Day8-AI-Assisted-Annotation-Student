@@ -10,7 +10,7 @@ from .data import LabError
 TEMPLATES = os.path.join(data.ROOT, "templates")
 TEMPLATE_FILES = ("decision_log.csv", "prediction.md", "interpretation.md", "ranking_rationale.md", "peer_check.md")
 # Câu phản tư nói thẳng giả thuyết đo (bỏ sót theo AI), nên chỉ tạo sau khi khóa bài — xem `copy_after_lock_templates`.
-AFTER_LOCK_TEMPLATES = ("reflection.md",)
+AFTER_LOCK_TEMPLATES = ("reflection.md", "case_review.md", "next_round.md")
 CAUSES = ("rule_unclear", "missed_search", "anchored", "tool_slip", "reference_disputed")
 LOG_STATES = ("accepted", "edited", "deleted", "added", "escalated", "not_reviewed", "out-of-schema")
 
@@ -101,7 +101,14 @@ def _text(name):
 def _filled(text):
     """Bỏ comment HTML và dòng hướng dẫn của template; còn chữ thật thì coi là đã viết."""
     body = re.sub(r"<!--.*?-->", "", text or "", flags=re.S)
-    return [l for l in body.splitlines() if l.strip() and not l.lstrip().startswith(("#", ">", "|---"))]
+    return [l for l in body.splitlines() if l.strip() and not l.lstrip().startswith(("#", ">", "|---"))
+            and not re.fullmatch(r"\d+\.", l.strip())]
+
+
+def _field_answers(text):
+    """Các dòng 'Trường: câu trả lời' sau khi bỏ hướng dẫn ẩn trong template."""
+    return {key.strip(): value.strip() for line in _filled(text)
+            if ":" in line for key, value in [line.split(":", 1)]}
 
 
 def _check_min(info):
@@ -160,9 +167,21 @@ def _check_core(info):
         validate_ranking(info)
     except LabError as e:
         out.append(str(e))
+    if not os.path.exists(data.sub("frame_scores.csv")):
+        out.append("thiếu frame_scores.csv — chạy make frame-scores")
+    if not os.path.exists(data.sub("al_eval.json")):
+        out.append("thiếu al_eval.json — chạy make al-eval sau khi cài gói 2")
     for n in ("ranking_rationale.md", "peer_check.md"):
         if len(_filled(_text(n))) < 3:
             out.append(f"{n} chưa viết")
+    case = _field_answers(_text("case_review.md"))
+    if len([v for v in case.values() if v]) < 7 or not re.search(r"\bc0[1-4]\b", case.get("Frame và vật", "")):
+        out.append("case_review.md cần đủ 7 trường và một frame C cụ thể")
+    next_round = _field_answers(_text("next_round.md"))
+    ids = re.findall(r"\bp\d{3}\b", next_round.get("Ba frame chưa chọn cho lượt sau", ""))
+    selected = {r["frame_id"].strip() for r in read_ranking_safe() if (r.get("selected") or "").strip() == "1"}
+    if len([v for v in next_round.values() if v]) < 6 or len(set(ids)) != 3 or set(ids) & selected or not set(ids) <= set(data.pool_frames()):
+        out.append("next_round.md cần đủ 6 trường và 3 frame pool khác nhau, chưa chọn ở lượt 1")
     if not os.path.exists(data.sub("lock_ranking.txt")):
         out.append("chưa khóa xếp hạng (make lock-ranking)")
     else:
@@ -179,6 +198,15 @@ def _check_core(info):
     if answered < 4:
         out.append(f"reflection.md: trả lời {answered}/4 câu")
     return out
+
+
+def read_ranking_safe():
+    """Đọc ranking để kiểm kế hoạch vòng sau; lỗi định dạng đã được báo bởi validate_ranking."""
+    from .ranking import read_ranking
+    try:
+        return read_ranking()
+    except (LabError, UnicodeError, csv.Error):
+        return []
 
 
 def cmd_check_submission(args):

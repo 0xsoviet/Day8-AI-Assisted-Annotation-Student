@@ -1,7 +1,7 @@
 # Card dữ liệu pool — phần (c) xếp hạng 50 frame
 
 Bạn có 50 frame chưa gán nhãn (`p001`–`p050`) và dự đoán của model trên từng frame. Việc của bạn: xếp hạng 50 frame
-theo thứ tự nên gửi đi gán nhãn, và chọn một batch vừa ngân sách ([cost card](cost-card.md)). Bạn **không** chạy model.
+theo thứ tự nên gửi đi gán nhãn, và chọn một batch vừa ngân sách ([cost card](cost-card.md)). Dự đoán pool đã được đóng băng để mọi người có cùng đầu vào; bạn chạy AI thật trên frame demo `d01` ở Colab.
 
 ## Ba file
 
@@ -20,14 +20,19 @@ theo thứ tự nên gửi đi gán nhãn, và chọn một batch vừa ngân s�
 1. **Scoring từng box**: least confidence `1 − conf`. Điểm này chỉ đo model phân vân về **class**; box lệch vị trí
    hoặc xe model không thấy thì không có điểm nào.
 2. **Gộp theo frame**: `sum`, `mean` hoặc `max`. Chọn theo kịch bản chi phí của bạn và ghi vì sao vào
-   `ranking_rationale.md`. `make frame-scores` tính sẵn cả ba vào `submission/frame_scores.csv` nếu bạn không muốn tự
-   tính; bảng đó **chưa** là xếp hạng.
+   `ranking_rationale.md`. `make frame-scores` tính sẵn cả ba vào `submission/frame_scores.csv`. Cột `ai_priority`
+   là thứ tự theo `sum(1−conf)`; `ai_suggested=1` là đề xuất cơ sở vừa ngân sách. Đề xuất này **chưa** xét ảnh trùng,
+   ngoại lai, độ đa dạng hoặc vật model bỏ sót. Nếu `ranking.csv` còn trống, lệnh điền bản nháp đủ 50 rank theo
+   gợi ý; chạy lại **không ghi đè** quyết định bạn đã sửa. Xem top 5 gợi ý, nêu ít nhất một quyết định giữ/đổi có
+   bằng chứng. Nếu bạn chọn `mean` hoặc `max`, cập nhật cột `frame_score` và thứ tự tương ứng.
 3. **Sampling**: trước khi lấy top theo ngân sách,
    - loại trùng: cùng `seq_id` và `time_s` cách nhau rất gần (vài phần mười giây) là gần như cùng một cảnh. Tự chọn
      ngưỡng khoảng cách và ghi lại. Cùng `camera_id` khác `seq_id` là cùng địa điểm, khác lúc quay: không tự động là trùng;
    - gắn cờ ngoại lai vô ích: frame điểm cao nhưng gán nhãn cũng không dạy được gì (lóa, xe chỉ còn vài pixel). Kiểm bằng
      contact sheet, đừng chỉ nhìn số.
 4. **Xếp hạng 50 frame** và giải thích 5 frame đầu trong `ranking_rationale.md`.
+
+Nếu một frame không có box, `sum_lc=0` **không chứng minh** ảnh không có xe; model có thể bỏ sót toàn bộ. Nhìn contact sheet và ảnh gốc trước khi quyết định.
 
 ## Điền `submission/ranking.csv`
 
@@ -51,3 +56,7 @@ thiếu frame, trùng rank, sai `flag` hoặc vượt ngân sách.
 `make al-eval` (cần gói 2 Lab Coach phát) so batch của bạn với 1.000 lần chọn ngẫu nhiên, với cách `sum` không loại
 trùng, và với chính điểm của bạn khi bỏ bước sampling. Đọc dòng giới hạn nó in ra cuối cùng: proxy này **không** đo model
 sau khi học có tốt hơn không.
+
+Sau đó điền `next_round.md`: dùng ít nhất một tín hiệu từ `al_eval.json` hoặc `error_profile.csv`, chọn **3 frame chưa
+chọn** cho lượt giả định tiếp theo, giải thích cách chúng bổ trợ nhau và một quy tắc scoring/sampling bạn sẽ đổi.
+Không gán nhãn, huấn luyện lại hay tuyên bố model đã tốt hơn ở lượt này.

@@ -9,6 +9,9 @@
 ## Sampling
 <!-- Bạn loại trùng thế nào (seq_id + khoảng cách thời gian, contact sheet)? Gắn cờ ngoại lai theo tiêu chí gì? -->
 
+## Phản biện gợi ý của model
+<!-- frame_scores.csv có ai_priority và ai_suggested: gợi ý theo sum(1−conf), chưa loại trùng/ngoại lai. Nêu ít nhất một frame bạn giữ hoặc bỏ khỏi gợi ý và bằng chứng trong ảnh hoặc chi phí. Xe model hoàn toàn bỏ sót không có điểm bất định. -->
+
 ## Top 5
 <!-- Mỗi frame: box nào, tín hiệu nào, vì sao không trùng frame khác trong top, điểm cao vì mơ hồ-nhưng-học-được hay vì nhiễu/ngoại lai. -->
 
