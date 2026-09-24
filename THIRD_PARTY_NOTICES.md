@@ -7,8 +7,8 @@ phân phối lại frame qua repo học viên public. Người phụ trách dữ
 khi công bố. Tài liệu này không tự cấp quyền sử dụng.
 
 Notebook sử dụng [Ultralytics](https://github.com/ultralytics/ultralytics) bản `8.4.161` trên Colab;
-điều khoản phần mềm và mô hình áp dụng theo nhà phát hành. CVAT và AnyLabeling là các công cụ
-gán nhãn bên ngoài, không được đóng gói trong repo.
+điều khoản phần mềm và mô hình áp dụng theo nhà phát hành. Bài lab dùng [CVAT Community](https://github.com/cvat-ai/cvat)
+`v2.76.0` chạy qua Docker trên máy của từng học viên; CVAT không được đóng gói trong repo.
 
 Nhãn test là đầu ra mô hình, chưa qua rà nhãn thủ công. Vai trò và giới hạn của chúng được ghi
 trong [`data/DATA.md`](data/DATA.md).

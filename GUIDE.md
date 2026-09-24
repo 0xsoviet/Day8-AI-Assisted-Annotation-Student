@@ -1,6 +1,23 @@
 # Hướng dẫn Day 8 theo từng bước
 
-Mở file này cạnh [rubric](RUBRIC.md) và [quy tắc box](GUIDELINE_LABEL.md). Bài nộp là **của từng người**, kể cả khi bạn trao đổi với bạn học. AI và fine-tune chạy trên Colab; máy cá nhân chỉ cần trình duyệt, GitHub Desktop hoặc Git, và Python 3.9+ để kiểm/đóng gói file. Nếu dùng CVAT chương trình, bạn không phải cài CVAT trên máy.
+Mở file này cạnh [rubric](RUBRIC.md) và [quy tắc box](GUIDELINE_LABEL.md). Bài nộp là **của từng người**, kể cả khi bạn trao đổi với bạn học. AI và fine-tune chạy trên Colab; toàn bộ việc gán nhãn diễn ra trên **CVAT Docker chạy tại máy của bạn**. Bạn cần Docker Desktop đang chạy, Git, trình duyệt, GitHub Desktop hoặc Git, và Python 3.9+ để kiểm/đóng gói file.
+
+## Chuẩn bị CVAT Docker trên máy (làm một lần trước hoặc đầu buổi)
+
+1. Cài và mở [Docker Desktop](https://www.docker.com/products/docker-desktop/). Mở Terminal hoặc PowerShell rồi chạy `docker version`. Nếu lệnh báo lỗi, mở Docker Desktop và chờ trạng thái Engine đang chạy.
+2. Trong thư mục bạn chọn để cài CVAT, chạy các lệnh sau. Bản `v2.76.0` được cố định để cả lớp dùng cùng giao diện:
+
+   ```bash
+   git clone --depth 1 --branch v2.76.0 https://github.com/cvat-ai/cvat.git
+   cd cvat
+   docker compose up -d
+   docker exec -it cvat_server bash -ic 'python3 ~/manage.py createsuperuser'
+   ```
+
+   Ở lệnh cuối, tự đặt username, email và password cho tài khoản CVAT của **bạn**. Không gửi password cho người khác hoặc ghi vào repo bài nộp.
+3. Mở `http://localhost:8080`, đăng nhập bằng tài khoản vừa tạo. Chạy `docker compose ps`; các dịch vụ cần ở trạng thái đang chạy trước khi bắt đầu làm bài.
+
+Lần tải Docker image đầu tiên có thể mất thời gian và cần dung lượng ổ đĩa. Nếu CVAT không lên được, xem `docker compose logs --tail=100` trong thư mục `cvat`, lưu ảnh lỗi và báo Lab Coach. Không dùng CVAT của người khác, CVAT chương trình, AnyLabeling hoặc sửa trực tiếp file YOLO thay cho CVAT local.
 
 ## 0. Tạo repo và mở Colab (phút 0–25)
 
@@ -23,11 +40,11 @@ Bản quét không chứng minh bạn đúng hơn model; nó cho phép bạn đ�
 
 Quy tắc chung: chỉ một class `car` cho xe từ 4 bánh trở lên. Với **từng ảnh**, tự kiểm theo thứ tự: thiếu xe → box sai class/không phải xe → box trùng → box lệch → trường hợp mơ hồ. Xem ví dụ trong [GUIDELINE_LABEL.md](GUIDELINE_LABEL.md). Đừng giữ nguyên toàn bộ nhãn AI chỉ vì box có confidence cao.
 
-**CVAT local:** tạo task riêng với 12 ảnh trong `to_label/round1/images/train/`, label duy nhất `car`; upload annotations từ ZIP `to_label/round1/` ở định dạng **Ultralytics YOLO Detection 1.0**. **CVAT chương trình:** mở task riêng do Lab Coach cấp cho bạn; kiểm tra đủ 12 tên ảnh và pre-label trước khi sửa. Không dùng cùng một job để hai người ghi đè lên nhau. Nếu task chương trình chưa có sẵn, báo Lab Coach để cấp task/đường dự phòng.
+Trên CVAT ở `http://localhost:8080`, tạo **một task riêng** với 12 ảnh trong `to_label/round1/images/train/` và label duy nhất `car`. Tạo ZIP của nội dung `to_label/round1/`, sau đó dùng **Upload annotations** để import pre-label với định dạng **Ultralytics YOLO Detection 1.0**. Trước khi sửa, kiểm tra đủ 12 tên ảnh và có box gợi ý. Mỗi người dùng CVAT Docker và task riêng trên máy mình; không chia sẻ database hay ghi đè task của người khác.
 
 Sau khi sửa, export task/job cùng định dạng **Ultralytics YOLO Detection 1.0**, không cần kèm ảnh. Giải nén ZIP export và tìm thư mục `labels/train/` (có thể là `train/labels/` tùy cấu trúc export). Mỗi ảnh phải có file `.txt` với class id `0` và năm cột `0 cx cy w h`. [CVAT ghi định dạng và cấu trúc này trong tài liệu chính thức](https://docs.cvat.ai/docs/dataset_management/formats/format-yolo-ultralytics/).
 
-Nếu dùng AnyLabeling, mở `to_label/round1/images/train/`, sửa hình chữ nhật và lưu file `.json` cạnh ảnh. Nếu CVAT không vào được, báo Lab Coach rồi dùng đường này hoặc sửa YOLO `.txt` trực tiếp theo hướng dẫn, không bỏ lô.
+Nếu CVAT local không vào được hoặc import/export lỗi, chụp ảnh lỗi, chạy `docker compose ps` và `docker compose logs --tail=100` trong thư mục `cvat`, rồi báo Lab Coach. Không chuyển sang công cụ hay CVAT server khác vì bài này cần cùng một luồng CVAT Docker local.
 
 Chép `reports/REVIEW_LOG_TEMPLATE.csv` thành `reports/REVIEW_LOG.csv`; thay dòng ví dụ bằng **ít nhất ba ca thật**. Ghi `round`, `frame_id`, mô tả vật, hành động `accepted`/`edited`/`deleted`/`added`, và lý do theo guideline. Ưu tiên ca cho thấy AI bỏ sót, box giả và một ca bạn giữ/sửa có căn cứ. Log dùng để giải thích bản nhãn cuối, không phải số điểm tự động theo số box bạn sửa.
 
@@ -39,7 +56,7 @@ Nếu sửa bằng CVAT:
 python3 tools/pack_labels.py to_label/round1 --yolo-dir /duong/dan/cvat_export/labels/train
 ```
 
-Nếu thư mục export là `train/labels`, trỏ `--yolo-dir` vào đúng thư mục ấy. Nếu sửa bằng AnyLabeling hoặc file YOLO trong `to_label/`, chạy `python3 tools/pack_labels.py to_label/round1`. Script kiểm tên ảnh, box và tạo `labels/round1/`, `outputs/round1_diff.json/.md`, rồi cập nhật `day8_data.zip`. Nếu báo lỗi, sửa file được nêu rồi chạy lại.
+Nếu thư mục export là `train/labels`, trỏ `--yolo-dir` vào đúng thư mục ấy. Script kiểm tên ảnh, box và tạo `labels/round1/`, `outputs/round1_diff.json/.md`, rồi cập nhật `day8_data.zip`. Nếu báo lỗi, sửa file được nêu rồi export lại từ CVAT.
 
 Trên Colab, chạy notebook lần thứ hai và tải **`day8_data.zip` mới** lên. Notebook nhận `labels/round1/`, fine-tune YOLO, đánh giá trên đúng 20 ảnh test và tải `day8_round1_out.zip`. Giải nén vào gốc repo cá nhân, **giữ lại các file `outputs/` vòng 0**, rồi mở `outputs/compare_round1.jpg`. Mức tăng AP50 không được bảo đảm với lô nhỏ; hãy quan sát ca nào tốt/xấu hơn.
 
@@ -56,7 +73,7 @@ Trên Colab, chạy notebook lần thứ hai và tải **`day8_data.zip` mới**
 
 | Sự cố | Cách xử lý |
 | --- | --- |
-| CVAT chương trình chưa có task riêng | Báo Lab Coach; không sửa job chung. Có thể dùng CVAT local hoặc đường file YOLO khi được hướng dẫn. |
+| `http://localhost:8080` không mở | Mở Docker Desktop, trong thư mục `cvat` chạy `docker compose ps`; nếu dịch vụ chưa chạy, chạy `docker compose up -d`. Nếu vẫn lỗi, gửi `docker compose logs --tail=100` cho Lab Coach. |
 | CVAT export không thấy `labels/train` | Tìm `train/labels`; kiểm đúng **Ultralytics YOLO Detection 1.0**, không chọn Segmentation hoặc YOLO 1.1. |
 | Colab mất phiên | Tải lại `day8_data.zip` mới nhất rồi chạy notebook; giữ ZIP và repo đã push trên máy. |
 | `check_submission.py` báo thiếu metrics vòng cuối | Chạy notebook thêm một lần sau khi đóng gói nhãn vòng cuối. |

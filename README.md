@@ -11,7 +11,7 @@ Một vòng bắt buộc: **cold start → chọn 12 ảnh → kiểm/sửa pre-
 | Nơi làm | Công việc |
 | --- | --- |
 | **Colab** | Chạy YOLO, chọn ảnh, fine-tune và tạo số đo. Máy cá nhân không cần GPU. |
-| **CVAT** | Máy thường dùng CVAT local; máy yếu dùng CVAT chương trình qua trình duyệt. Cả hai sửa cùng định dạng box `car` và xuất Ultralytics YOLO Detection 1.0. AnyLabeling hoặc sửa file YOLO là đường khác nếu cần. |
+| **CVAT Docker local** | Mỗi người chạy CVAT bằng Docker trên máy của mình, tạo task riêng, sửa box `car` và xuất Ultralytics YOLO Detection 1.0. |
 | **Máy cá nhân** | Chạy các script Python chỉ dùng thư viện chuẩn để khóa quan sát, kiểm và đóng gói nhãn; tải kết quả phân tích từ Colab về, commit rồi push repo public của mình. Không huấn luyện mô hình ở đây. |
 
 Mọi người dùng cùng [quy tắc gán nhãn](GUIDELINE_LABEL.md), [hướng dẫn từng bước](GUIDE.md), [rubric 100 điểm](RUBRIC.md) và gói nộp. Làm cùng bạn được trao đổi sau khi mỗi người đã khóa bản quan sát độc lập; mỗi người vẫn tự sửa nhãn, phân tích và nộp repo riêng.
@@ -37,7 +37,7 @@ Mọi người dùng cùng [quy tắc gán nhãn](GUIDELINE_LABEL.md), [hướng
 | 205–225 | Kiểm gói nộp và push lên repo public của mình | `reports/rounds_table.md`, toàn bộ gói nộp |
 | 225–240 | Dự phòng sự cố hoặc phân tích sâu hơn | Không bắt buộc vòng 2 |
 
-Các mốc chỉ là kế hoạch cho bản ghép thử, cần được kiểm bằng thời gian thực của người mới và CVAT chương trình. Nếu Colab chưa cấp GPU hoặc CVAT không mở được, báo Lab Coach để dùng đường dự phòng; không sửa số đo hoặc bỏ qua nhãn để chạy kịp.
+Các mốc chỉ là kế hoạch cho bản ghép thử, cần được kiểm bằng thời gian thực của người mới và CVAT Docker local. Nếu Colab chưa cấp GPU hoặc CVAT local không mở được, lưu log Docker và báo Lab Coach; không sửa số đo hoặc bỏ qua nhãn để chạy kịp.
 
 ## Gói nộp duy nhất
 
