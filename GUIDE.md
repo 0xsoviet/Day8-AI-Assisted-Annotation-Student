@@ -1,21 +1,20 @@
 # Hướng dẫn từng khối — Lab #08
 
-Mở file này cạnh CVAT. Mỗi khối ghi: làm gì, lệnh nào, và **xong khi** nào. Lệnh `make` chạy trong thư mục repo.
-Máy không có `make`: gõ `python3 -m lab8 <lệnh>` (Windows: `python -m lab8 <lệnh>`), vd `python3 -m lab8 states`.
+Mở file này cạnh CVAT. Cả hai loại máy dùng [notebook Colab](notebooks/day8-colab.ipynb) để chạy AI và các lệnh phân tích. Các lệnh `make` dưới đây là tên bước tương ứng trong notebook; nếu chạy tại repo trên máy, gõ `python -m lab8 <lệnh>` khi không có `make`.
 
 ## Phút 0–15 — Nhận việc và làm mẫu
 
-1. Lab Coach phát cho bạn: **nhóm** (A hoặc B), **kịch bản chi phí** (S1 hoặc S2), và **2 link job CVAT**.
-2. Chạy:
+1. Tạo repo private riêng từ template, tải ZIP repo rồi mở notebook Colab. Điền tên và GitHub username; notebook tự xác định A/B và S1/S2. Không đổi username giữa buổi.
+2. Trên Colab chạy `verify-data` và `init`; nếu chạy tại repo trên máy:
    ```bash
    make verify-data
-   make init NAME="Họ Tên" GROUP=A SCENARIO=S1
+   make init NAME="Họ Tên" GITHUB_USER=tai-khoan-github
    ```
-   `make init` tạo thư mục `submission/` với các file mẫu. Chạy lại không xóa bài đang làm. Không đổi nhóm giữa buổi.
-3. Đọc [card guideline](cards/guideline-card.md). Làm lại frame demo theo [card 4 trạng thái](cards/four-states-card.md).
-4. Mở thử cả 2 job (chỉ xem tên job, **chưa** làm job có AI). Thao tác CVAT: [card CVAT](cards/cvat-card.md).
+   `init` tạo `submission/` với file mẫu. Chạy lại không xóa bài đang làm.
+3. Chạy YOLO trong notebook trên frame demo `d01` ở hai ngưỡng confidence; ghi một thay đổi và một giới hạn của AI. Đọc [card guideline](cards/guideline-card.md) và [card 4 trạng thái](cards/four-states-card.md).
+4. Máy bình thường tạo hai task trên CVAT local; máy yếu nhận hai link job trên CVAT chương trình. Xem [card CVAT](cards/cvat-card.md). Chỉ mở khối có AI sau khi đã xong khối tay.
 
-**Xong khi:** mở được 2 job; `submission/decision_log.csv` có 4 dòng mẫu `d01` và bạn hiểu từng dòng.
+**Xong khi:** mở được khối tay, biết lộ trình và chi phí, có `submission/ai_probe.json`; `decision_log.csv` có 4 dòng mẫu `d01`.
 
 Từ ngữ lạ: [thẻ từ vựng](cards/vocabulary-card.md).
 
@@ -122,7 +121,7 @@ Lab Coach chiếu số gộp của cả lớp, không gắn tên. Luật: không
 
 1. Trả lời 4 câu trong `submission/reflection.md`. Mỗi câu có ≥ 1 số của bạn và một câu "số này không chứng minh …".
 2. `make check-submission` → báo thiếu gì. Lệnh này **không** chấm điểm.
-3. Đối chiếu [rubric 100 điểm](RUBRIC.md), rồi nộp theo cách Lab Coach thông báo.
+3. Đối chiếu [rubric 100 điểm](RUBRIC.md). Từ Colab tải `submission.zip`, giải nén vào repo private riêng trên máy, kiểm tra rồi push lên GitHub để hệ thống chấm.
 
 ## Phút 230–240 — Dự phòng
 
@@ -132,7 +131,7 @@ Hoàn tất phần còn thiếu. Xong sớm: chọn một bài trong [card stret
 
 | Gặp | Làm |
 |---|---|
-| CVAT không vào được | Báo Lab Coach ngay. Chỉ chuyển sang Path B ([card CVAT](cards/cvat-card.md#path-b--khi-cvat-của-lớp-không-vào-được)) khi Lab Coach đồng ý |
+| CVAT không vào được | Báo Lab Coach ngay để được cấp đường CVAT còn lại; xem [card CVAT](cards/cvat-card.md) |
 | `make states` báo sai định dạng / sai job | Export lại đúng **CVAT for images 1.1**, đúng job, đổi tên đúng như card CVAT |
 | `make verify-data` báo khác sha256 | Không sửa `data/`. Tải lại repo |
 | Lỡ mở job có AI trước khi xong khối tay | Báo Lab Coach và ghi vào `reflection.md`. Đừng giấu: số của bạn vẫn dùng được nếu Lab Coach biết |

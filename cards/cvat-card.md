@@ -4,7 +4,7 @@ Phím tắt có thể khác giữa các bản CVAT: bấm **F1** trong màn gán
 
 ## Hai job của bạn
 
-Lab Coach gửi 2 link job, tên dạng `lab08-L<số thứ tự>-khoi1-tay-<X|Y>` và `lab08-L<số thứ tự>-khoi2-co-AI` (vd `lab08-L07-khoi2-co-AI`):
+Máy yếu dùng **CVAT của chương trình**: Lab Coach gửi 2 link job, tên dạng `lab08-L<số thứ tự>-khoi1-tay-<X|Y>` và `lab08-L<số thứ tự>-khoi2-co-AI`. Máy bình thường dùng **CVAT local** và tạo 2 task tương đương theo hướng dẫn bên dưới. Lộ trình A/B do `init` tự xác định từ GitHub username.
 
 | Job | Mở lúc | Có sẵn box AI? |
 |---|---|---|
@@ -40,9 +40,9 @@ Lab Coach gửi 2 link job, tên dạng `lab08-L<số thứ tự>-khoi1-tay-<X|Y
 Sau khi mở reference, vòng sửa lại làm **trong cùng job có AI**, rồi export lần nữa thành `submission/assisted_rework.xml`.
 Không ghi đè `assisted.xml`: file đó đã khóa.
 
-## Path B — khi CVAT của lớp không vào được
+## Máy bình thường — CVAT local
 
-Báo Lab Coach trước. Nếu Lab Coach cho chuyển sang Path B, dùng CVAT chạy trên máy bạn (cài như Ngày 2):
+Dùng CVAT chạy trên máy bạn (đã cài như Ngày 2). Nếu chưa cài hoặc máy không chạy nổi, dùng CVAT chương trình và báo Lab Coach để cấp đúng 2 job:
 
 1. Tạo project với label dán ở tab *Raw*:
    ```json
@@ -55,4 +55,4 @@ Báo Lab Coach trước. Nếu Lab Coach cho chuyển sang Path B, dùng CVAT ch
    **Actions → Upload annotations**, định dạng **CVAT 1.1**, chọn `data/cvat/prelabel_group_A.xml` hoặc `_B.xml` theo nhóm.
 4. Làm và export như trên. Các lệnh `make` chạy như cũ vì chúng chỉ đọc file export.
 
-Làm Path B thì ghi một dòng vào `reflection.md` để Lab Coach biết thời gian của bạn bị ảnh hưởng.
+Hai đường CVAT dùng cùng ảnh, pre-label, luật và định dạng export; việc dùng CVAT local không làm thay đổi thang chấm. Nếu CVAT đang dùng gặp sự cố, báo Lab Coach để chuyển đường còn lại, ghi thời gian ảnh hưởng vào `reflection.md`. Không chạy CVAT server trong Colab.

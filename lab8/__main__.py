@@ -25,7 +25,7 @@ def main(argv=None):
     for name, (_, help_) in COMMANDS.items():
         s = sp.add_parser(name, help=help_)
         if name == "init":
-            s.add_argument("--name"); s.add_argument("--group"); s.add_argument("--scenario")
+            s.add_argument("--name"); s.add_argument("--github-user")
         if name == "install-reference":
             s.add_argument("--zip")
         if name == "profile":

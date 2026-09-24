@@ -15,11 +15,13 @@ Lab Coach đã tô xám các vùng ignore của UA-DETRAC, đổi tên frame và
 
 `data/prelabel/`, `data/cvat/` và `data/pool/pool_predictions.csv` là output của `yolo11n.pt`
 ([Ultralytics](https://docs.ultralytics.com/), mô hình COCO chưa fine-tune), chạy trên CPU rồi đóng băng thành file.
-Trong buổi lab bạn không chạy model.
+Trong buổi lab, notebook Colab chạy YOLO11n thật trên **frame demo `d01`** ở hai ngưỡng confidence. Output đó chỉ để học cách kiểm dự đoán; không thay pre-label đã đóng băng của 10 frame bài chính.
 
 ## Phần mềm
 
 - [CVAT](https://github.com/cvat-ai/cvat) — công cụ gán nhãn; định dạng export CVAT for images 1.1.
+- [Google Colab](https://research.google.com/colaboratory/faq.html) — môi trường chạy notebook; tài nguyên và thời lượng phiên có thể thay đổi.
+- [Ultralytics YOLO11](https://docs.ultralytics.com/models/yolo11/) — mô hình chạy trong notebook trên frame demo.
 - Package `lab8/` chỉ dùng thư viện chuẩn của Python.
 
 Việc dùng từng phần mềm tuân theo giấy phép và điều khoản tại nguồn tương ứng.

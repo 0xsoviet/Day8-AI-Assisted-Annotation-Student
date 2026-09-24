@@ -16,17 +16,30 @@ LOG_STATES = ("accepted", "edited", "deleted", "added", "escalated", "not_review
 
 
 def cmd_init(args):
-    name, group, scenario = (args.name or "").strip(), (args.group or "").strip().upper(), (args.scenario or "").strip().upper()
+    from .assignment import assignment_for, normalize_user
+
+    name = (args.name or "").strip()
+    github_user = normalize_user(getattr(args, "github_user", "")) if getattr(args, "github_user", None) else ""
+    if github_user:
+        group, scenario = assignment_for(github_user)
+    else:
+        group = (getattr(args, "group", "") or "").strip().upper()
+        scenario = (getattr(args, "scenario", "") or "").strip().upper()
     if not name or group not in data.GROUPS or scenario not in data.SCENARIOS:
-        raise LabError("Cần đủ: make init NAME=\"Họ Tên\" GROUP=A|B SCENARIO=S1|S2 (Lab Coach phát nhóm và kịch bản)")
+        raise LabError("Cần: make init NAME=\"Họ Tên\" GITHUB_USER=tai-khoan-github")
     os.makedirs(data.SUB, exist_ok=True)
     path = data.sub("info.json")
     if os.path.exists(path):
         old = data.load_json(path)
         if (old.get("group"), old.get("scenario")) != (group, scenario):
             raise LabError(f"submission/info.json đã có nhóm {old.get('group')}, kịch bản {old.get('scenario')}. "
-                           "Đổi nhóm giữa buổi làm hỏng phép đo — hỏi Lab Coach.")
-    data.write_json(path, dict(name=name, group=group, scenario=scenario))
+                           "Không đổi tài khoản giữa buổi; giữ nguyên bài đang làm.")
+        if github_user and old.get("github_user") not in (None, github_user):
+            raise LabError("submission/info.json thuộc tài khoản GitHub khác; không đổi tài khoản giữa buổi.")
+    info = dict(name=name, group=group, scenario=scenario)
+    if github_user:
+        info["github_user"] = github_user
+    data.write_json(path, info)
     made = []
     for n in TEMPLATE_FILES:
         if not os.path.exists(data.sub(n)):
@@ -39,7 +52,7 @@ def cmd_init(args):
                 w.writerow([fid, "", "", "0", "ok", ""])
         made.append("ranking.csv")
     g = data.GROUPS[group]
-    print(f"Chào {name}. Nhóm {group}: khối tay = tập {g['manual']} ({len(data.frames_of(g['manual']))} frame), "
+    print(f"Chào {name}. Lộ trình {group}: khối tay = tập {g['manual']} ({len(data.frames_of(g['manual']))} frame), "
           f"khối có AI = tập {' + '.join(g['assisted'])} ({len(data.frames_of(*g['assisted']))} frame). Kịch bản chi phí {scenario}.")
     print("Đã tạo trong submission/: " + (", ".join(made) or "(không có file mới — giữ nguyên bài đang làm)"))
 

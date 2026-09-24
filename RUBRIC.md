@@ -4,6 +4,8 @@
 
 Điểm **không tăng hoặc giảm theo độ lớn** của accept rate, shared-miss, residual error, số lỗi honeypot bắt được, hay proxy active learning. Các số ấy là dữ liệu để bạn phân tích. Một số thấp hoặc cao vẫn có thể đạt điểm phần phân tích nếu được tính đúng, giải thích đúng và nêu đúng giới hạn. [Card stretch](cards/stretch-card.md) là tùy chọn, không cộng điểm và không thay thế bài chính.
 
+Notebook Colab cho bạn chạy YOLO thật trên frame demo và lưu `ai_probe.json` để ôn cách đọc dự đoán. Đây là hoạt động thực hành; hệ thống chấm vẫn dùng các tiêu chí và mức điểm trong bảng dưới đây, tổng **100 điểm**.
+
 ## Bảng chấm
 
 | Tiêu chí | Bằng chứng và cách phân điểm | Điểm tối đa |

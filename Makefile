@@ -6,7 +6,7 @@ LAB = $(PY) -m lab8
 
 help:
 	@echo "Lab #08 — thứ tự dùng trong buổi:"
-	@echo "  make init NAME=\"Họ Tên\" GROUP=A|B SCENARIO=S1|S2   tạo submission/ (Lab Coach phát nhóm + kịch bản)"
+	@echo "  make init NAME=\"Họ Tên\" GITHUB_USER=tai-khoan   tự xác định lộ trình + chi phí, tạo submission/"
 	@echo "  make verify-data                    kiểm data/ khớp SHA256SUMS"
 	@echo "  make states                         4 trạng thái từ submission/assisted.xml"
 	@echo "  make lock                           khóa phần (a)+(b), in mã gửi Lab Coach"
@@ -19,7 +19,7 @@ help:
 	@echo "  make check-submission               kiểm gói nộp đủ và đúng dạng (không chấm điểm)"
 
 init:
-	@$(LAB) init --name "$(NAME)" --group "$(GROUP)" --scenario "$(SCENARIO)"
+	@$(LAB) init --name "$(NAME)" --github-user "$(GITHUB_USER)"
 verify-data:
 	@$(LAB) verify-data
 states:

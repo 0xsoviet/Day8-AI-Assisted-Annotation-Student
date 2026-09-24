@@ -9,40 +9,45 @@ có hạn.
 
 Bạn sẽ:
 
-1. **Làm tay** 6 frame: vẽ box mọi xe theo card guideline.
-2. **Thẩm định pre-label** 10 frame do một model thật gợi ý: giữ, sửa, xóa hoặc vẽ thêm từng box. Batch này có một frame
+1. **Chạy AI thật** trên frame demo `d01` bằng Colab, đổi ngưỡng và so dự đoán.
+2. **Làm tay** 6 frame: vẽ box mọi xe theo card guideline.
+3. **Thẩm định pre-label** 10 frame do một model thật gợi ý: giữ, sửa, xóa hoặc vẽ thêm từng box. Batch này có một frame
    honeypot đã cài lỗi.
-3. **Khóa bài**, rồi mới xem reference và đọc lỗi của AI và của chính mình theo class, điều kiện, kích thước.
-4. **Sửa lại** lỗi của mình, ghi nguyên nhân từng lỗi.
-5. **Xếp hạng 50 frame** chưa gán nhãn theo thứ tự nên gửi đi gán nhãn, trong một ngân sách cố định.
+4. **Khóa bài**, rồi mới xem reference và đọc lỗi của AI và của chính mình theo class, điều kiện, kích thước.
+5. **Sửa lại** lỗi của mình, ghi nguyên nhân từng lỗi.
+6. **Xếp hạng 50 frame** chưa gán nhãn theo thứ tự nên gửi đi gán nhãn, trong một ngân sách cố định.
 
 Bài **không** chấm theo độ lớn của các con số bạn đo được. Bài xét bằng chứng và lập luận: bạn làm gì, vì sao, và con số
 nào không chứng minh điều gì. Làm đúng như bình thường bạn vẫn làm; con số thật có ích hơn con số đẹp.
 
-## Bắt đầu trong 5 phút
+## Nhớ 3 nơi làm việc
 
-Cần: Python ≥ 3.8 (không cài thêm thư viện), trình duyệt mở được CVAT của lớp.
+| Nơi | Bạn làm gì? |
+|---|---|
+| **Colab** | Chạy thử YOLO trên `d01`, chạy lệnh `lab8`, tạo và tải `submission.zip` |
+| **CVAT** | Vẽ tay trước, rồi duyệt box AI; máy bình thường dùng CVAT local, máy yếu dùng CVAT chương trình |
+| **Repo private của bạn** | Nhận thư mục `submission/` từ Colab, commit và push để hệ thống chấm |
+
+Thứ tự quan trọng: **tay → có AI → khóa → xem reference → sửa → xếp hạng → push**. Mỗi mốc có lệnh và dấu hiệu hoàn thành trong [GUIDE](GUIDE.md).
+
+## Bắt đầu
+
+Cần: trình duyệt, tài khoản Google để mở [notebook Colab](notebooks/day8-colab.ipynb), tài khoản GitHub và CVAT. Không cần GPU trên máy cá nhân. Máy bình thường dùng CVAT local; máy yếu dùng CVAT của chương trình qua trình duyệt. Cả hai chạy AI và lệnh phân tích trên Colab.
 
 1. Trên trang repo này bấm **Use this template → Create a new repository**, chủ sở hữu là tài khoản của bạn, chọn
    **Private**. Vào repo mới: **Settings → Collaborators → Add people**, thêm tài khoản GitHub Lab Coach thông báo
-   (không thêm thì Lab Coach không xem được bài). Clone repo của bạn về máy, mở terminal trong thư mục repo.
+   (không thêm thì chương trình không xem được bài). Tải repo riêng của bạn bằng **Code → Download ZIP**.
    Mở link repo mà GitHub báo 404: tài khoản của bạn chưa được cấp quyền đọc (hoặc bạn chưa nhận lời mời trong email)
    — báo Lab Coach.
-2. Chạy:
-   ```bash
-   make verify-data
-   make init NAME="Họ Tên" GROUP=A SCENARIO=S1
-   ```
-   Lab Coach phát **nhóm** (A/B) và **kịch bản chi phí** (S1/S2). Máy không có `make` (thường là Windows): thay `make <lệnh>`
-   bằng `python -m lab8 <lệnh>`, vd `python -m lab8 init --name "Họ Tên" --group A --scenario S1`. `make help` liệt kê
-   mọi lệnh.
-3. Mở [GUIDE.md](GUIDE.md) cạnh CVAT và làm theo từng khối thời gian.
+2. Giải nén ZIP để lấy [notebook](notebooks/day8-colab.ipynb), vào Colab chọn **File → Upload notebook** và chọn file `notebooks/day8-colab.ipynb`. Sau đó tải **ZIP repo riêng** lên ở ô đầu, điền tên và **GitHub username**. Lệnh `init` tự cho bạn lộ trình A/B và chi phí S1/S2 ổn định theo username; Lab Coach không phát nhóm/kịch bản. Chạy thử AI trên frame demo theo ô tiếp theo.
+3. Mở [GUIDE.md](GUIDE.md) và [card CVAT](cards/cvat-card.md), làm theo từng khối. Máy bình thường có thể dùng terminal trong repo: `make verify-data`, `make init NAME="Họ Tên" GITHUB_USER=tai-khoan`. Windows không có `make`: `python -m lab8 init --name "Họ Tên" --github-user tai-khoan`.
+4. Cuối buổi, tải `submission.zip` từ Colab. Dùng GitHub Desktop **Clone repository** để có bản repo riêng trên máy, giải nén `submission/` vào bản clone đó, kiểm tra file rồi **Commit to main → Push origin**. Có thể dùng Git CLI tương đương. Thư mục **Download ZIP** không phải bản clone và không push trực tiếp được. Colab có thể xóa phiên và dữ liệu khi ngắt kết nối; tải bản đang làm về máy sau các mốc khóa.
 
 ## Lịch 240 phút
 
 | Phút | Việc | Kết quả |
 |---:|---|---|
-| 0–15 | Nhận việc, xem frame demo 4 trạng thái | `make init` xong, mở được 2 job CVAT |
+| 0–15 | Tự xác định lộ trình, chạy AI trên frame demo, xem 4 trạng thái | `init` xong, có `ai_probe.json`, mở được khối tay trên CVAT |
 | 15–45 | Khối 1: làm tay 6 frame | Job làm tay đã lưu |
 | 45–95 | Khối 2: thẩm định pre-label 10 frame | Job có AI đã lưu, `decision_log.csv` ≥ 5 dòng |
 | 95–105 | Nghỉ | |
@@ -74,6 +79,7 @@ báo Lab Coach.
 | 6 | `rework_log.csv`, `assisted_rework.xml` | `make profile`, bạn điền và export lại |
 | 7 | `ranking.csv`, `ranking_rationale.md`, `peer_check.md`, `lock_ranking.txt` | Bạn điền, `make lock-ranking` |
 | 8 | `reflection.md` (4 câu) | Tạo khi `make profile`, bạn trả lời |
+| Thực hành AI | `ai_probe.json` | Notebook chạy YOLO trên `d01`; là bằng chứng học tập, không thêm điểm ngoài rubric 100 |
 
 `make check-submission` báo file nào thiếu hoặc sai dạng. Lệnh này không chấm điểm.
 Đọc [rubric 100 điểm](RUBRIC.md) để biết hệ thống sẽ chấm bằng chứng và lập luận nào sau khi bạn nộp bài. Độ lớn của các chỉ số bias không phải điểm bài làm; rubric không đặt ngưỡng đạt/trượt chính thức.
@@ -84,7 +90,7 @@ báo Lab Coach.
 |---|---|
 | [Guideline](cards/guideline-card.md) | Trước khối 1; tra suốt buổi |
 | [4 trạng thái](cards/four-states-card.md) | Phút 0–15, frame demo |
-| [CVAT](cards/cvat-card.md) | Mở job, phím tắt, tag `not_reviewed`, export, Path B |
+| [CVAT](cards/cvat-card.md) | CVAT local hoặc CVAT chương trình, phím tắt, tag `not_reviewed`, export |
 | [Từ vựng](cards/vocabulary-card.md) | Gặp từ lạ |
 | [Sau khi khóa](cards/after-lock-card.md) | **Chỉ sau `make lock`** |
 | [Pool](cards/pool-card.md) và [chi phí](cards/cost-card.md) | Phút 165, phần xếp hạng |
@@ -110,6 +116,7 @@ báo Lab Coach.
 | `data/pool/` | Thông tin frame pool, dự đoán của model, contact sheet, ngân sách |
 | `data/manifest.csv` | Danh mục frame: tập, điều kiện, kích thước, sha256 |
 | `lab8/` | Công cụ dòng lệnh (`make <lệnh>`) |
+| `notebooks/day8-colab.ipynb` | Chạy AI demo, lệnh phân tích và đóng gói bài nộp trên Colab |
 | `templates/` | Mẫu `make init` và `make profile` chép vào `submission/` |
 | `reference/` | Rỗng lúc phát; `make install-reference` giải nén gói Lab Coach phát vào đây |
 

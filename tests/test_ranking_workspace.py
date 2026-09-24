@@ -21,6 +21,7 @@ def _hide_resource_warning(message, category, filename, lineno, file=None, line=
 warnings.showwarning = _hide_resource_warning
 
 from lab8 import data, ranking, workspace
+from lab8.assignment import assignment_for
 from lab8.data import LabError
 
 
@@ -164,6 +165,21 @@ class WorkspaceTests(LabDataPatchMixin, unittest.TestCase):
             self.assertTrue(os.path.exists(data.sub("reflection.md")))
             with self.assertRaises(LabError):
                 workspace.cmd_init(types.SimpleNamespace(name="Tester", group="B", scenario="S1"))
+
+    def test_github_user_assigns_stable_route_without_coach_input(self):
+        with tempfile.TemporaryDirectory() as root:
+            self.point_data_at(root)
+            self.write_minimal_data()
+            args = types.SimpleNamespace(name="Tester", github_user="@Student-08", group=None, scenario=None)
+            with contextlib.redirect_stdout(io.StringIO()):
+                workspace.cmd_init(args)
+            info = data.info()
+            self.assertEqual(info["github_user"], "student-08")
+            self.assertEqual((info["group"], info["scenario"]), assignment_for("student-08"))
+            with contextlib.redirect_stdout(io.StringIO()):
+                workspace.cmd_init(args)
+            with self.assertRaises(LabError):
+                workspace.cmd_init(types.SimpleNamespace(name="Tester", github_user="someone-else", group=None, scenario=None))
 
     def test_filled_ignores_template_comments(self):
         text = "# Heading\n<!-- hidden answer -->\n> prompt\n|---|---|\nReal answer 4/9\n"
