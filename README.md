@@ -1,7 +1,7 @@
 # Day 8 — Thẩm định pre-label và xếp hạng active learning
 
-**Dành cho học viên · 240 phút trên lớp · làm cá nhân.** Tạo repo **private** của bạn từ template này, làm bài trong
-đó, push kết quả rồi nộp link repo theo cách Lab Coach thông báo.
+**Dành cho học viên · 240 phút trên lớp · làm cá nhân.** Repo mẫu này được công bố **public khi bắt đầu buổi lab**.
+Tạo repo bài làm **private** của riêng bạn từ repo mẫu, push kết quả rồi nộp link theo cách Lab Coach thông báo.
 
 Pre-label đổi việc gán nhãn từ **vẽ nhãn** sang **thẩm định nhãn máy vẽ**. Hôm nay bạn làm cả hai trên cùng kiểu cảnh
 giao thông, rồi đo xem cách làm của mình thay đổi ra sao. Sau đó bạn chọn frame nên gửi đi gán nhãn tiếp khi ngân sách
@@ -37,8 +37,8 @@ Cần: trình duyệt, tài khoản Google để mở [notebook Colab](notebooks
 1. Trên trang repo này bấm **Use this template → Create a new repository**, chủ sở hữu là tài khoản của bạn, chọn
    **Private**. Vào repo mới: **Settings → Collaborators → Add people**, thêm tài khoản GitHub Lab Coach thông báo
    (không thêm thì chương trình không xem được bài). Tải repo riêng của bạn bằng **Code → Download ZIP**.
-   Mở link repo mà GitHub báo 404: tài khoản của bạn chưa được cấp quyền đọc (hoặc bạn chưa nhận lời mời trong email)
-   — báo Lab Coach.
+   Nếu link repo mẫu báo 404 **trong buổi lab**, kiểm tra lại link chính thức và báo Lab Coach; bạn không cần được mời
+   riêng để đọc repo mẫu sau khi nó đã public.
 2. Giải nén ZIP để lấy [notebook](notebooks/day8-colab.ipynb), vào Colab chọn **File → Upload notebook** và chọn file `notebooks/day8-colab.ipynb`. Sau đó tải **ZIP repo riêng** lên ở ô đầu, điền tên và **GitHub username**. Lệnh `init` tự cho bạn lộ trình A/B và chi phí S1/S2 ổn định theo username; Lab Coach không phát nhóm/kịch bản. Chạy thử AI trên frame demo theo ô tiếp theo.
 3. Mở [GUIDE.md](GUIDE.md) và [card CVAT](cards/cvat-card.md), làm theo từng khối. Máy bình thường có thể dùng terminal trong repo: `make verify-data`, `make init NAME="Họ Tên" GITHUB_USER=tai-khoan`. Windows không có `make`: `python -m lab8 init --name "Họ Tên" --github-user tai-khoan`.
 4. Cuối buổi, tải `submission.zip` từ Colab. Dùng GitHub Desktop **Clone repository** để có bản repo riêng trên máy, giải nén `submission/` vào bản clone đó, kiểm tra file rồi **Commit to main → Push origin**. Có thể dùng Git CLI tương đương. Thư mục **Download ZIP** không phải bản clone và không push trực tiếp được. Colab có thể xóa phiên và dữ liệu khi ngắt kết nối; tải bản đang làm về máy sau các mốc khóa.
