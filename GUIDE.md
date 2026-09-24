@@ -4,7 +4,7 @@ Mở file này cạnh CVAT. Cả hai loại máy dùng [notebook Colab](notebook
 
 ## Phút 0–15 — Nhận việc và làm mẫu
 
-1. Tạo repo private riêng từ template, tải ZIP repo rồi mở notebook Colab. Điền tên và GitHub username; notebook tự xác định A/B và S1/S2. Không đổi username giữa buổi.
+1. Tạo repo public riêng từ template, tải ZIP repo rồi mở notebook Colab. Điền tên và GitHub username; notebook tự xác định A/B và S1/S2. Không đổi username giữa buổi.
 2. Trên Colab chạy `verify-data` và `init`; nếu chạy tại repo trên máy:
    ```bash
    make verify-data
@@ -137,7 +137,7 @@ Sau đó Lab Coach chiếu số gộp của cả lớp, không gắn tên. Luậ
 
 1. Trả lời 4 câu trong `submission/reflection.md`. Mỗi câu có ≥ 1 số của bạn và một câu "số này không chứng minh …".
 2. `make check-submission` → báo thiếu gì. Lệnh này **không** chấm điểm.
-3. Đối chiếu [rubric 100 điểm](RUBRIC.md). Từ Colab tải `submission.zip`, giải nén vào repo private riêng trên máy, kiểm tra rồi push lên GitHub để hệ thống chấm.
+3. Đối chiếu [rubric 100 điểm](RUBRIC.md). Từ Colab tải `submission.zip`, giải nén vào repo public của bạn trên máy, kiểm tra rồi push lên GitHub để hệ thống chấm. Chỉ push sau khi đã khóa cả hai phần; không đưa gói reference lên repo.
 
 ## Phút 230–240 — Dự phòng
 

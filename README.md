@@ -1,7 +1,7 @@
 # Day 8 — Thẩm định pre-label và xếp hạng active learning
 
 **Dành cho học viên · 240 phút trên lớp · bài nộp cá nhân, có thể trao đổi theo cặp.** Repo mẫu này được công bố **public khi bắt đầu buổi lab**.
-Tạo repo bài làm **private** của riêng bạn từ repo mẫu, push kết quả rồi nộp link theo cách Lab Coach thông báo.
+Tạo repo bài làm **public** của riêng bạn từ repo mẫu, push kết quả sau khi hoàn thành hai mốc khóa rồi nộp link theo cách Lab Coach thông báo.
 
 Pre-label đổi việc gán nhãn từ **vẽ nhãn** sang **thẩm định nhãn máy vẽ**. Hôm nay bạn làm cả hai trên cùng kiểu cảnh
 giao thông, rồi đo xem cách làm của mình thay đổi ra sao. Sau đó bạn chọn frame nên gửi đi gán nhãn tiếp khi ngân sách
@@ -32,7 +32,7 @@ nào không chứng minh điều gì. Làm đúng như bình thường bạn v�
 |---|---|
 | **Colab** | Chạy thử YOLO trên `d01`, chạy lệnh `lab8`, tạo và tải `submission.zip` |
 | **CVAT** | Vẽ tay trước, rồi duyệt box AI; máy bình thường dùng CVAT local, máy yếu dùng CVAT chương trình |
-| **Repo private của bạn** | Nhận thư mục `submission/` từ Colab, commit và push để hệ thống chấm |
+| **Repo public của bạn** | Nhận thư mục `submission/` từ Colab, commit và push sau hai mốc khóa để hệ thống chấm |
 
 Thứ tự quan trọng: **tay → có AI → khóa → xem reference → sửa → xếp hạng → tự/bạn kiểm → khóa → xem kết quả → đề xuất lượt sau → push**. Mỗi mốc có lệnh và dấu hiệu hoàn thành trong [GUIDE](GUIDE.md).
 
@@ -41,13 +41,12 @@ Thứ tự quan trọng: **tay → có AI → khóa → xem reference → sửa 
 Cần: trình duyệt, tài khoản Google để mở [notebook Colab](notebooks/day8-colab.ipynb), tài khoản GitHub và CVAT. Không cần GPU trên máy cá nhân. Máy bình thường dùng CVAT local; máy yếu dùng CVAT của chương trình qua trình duyệt. Cả hai chạy AI và lệnh phân tích trên Colab.
 
 1. Trên trang repo này bấm **Use this template → Create a new repository**, chủ sở hữu là tài khoản của bạn, chọn
-   **Private**. Vào repo mới: **Settings → Collaborators → Add people**, thêm tài khoản GitHub Lab Coach thông báo
-   (không thêm thì chương trình không xem được bài). Tải repo riêng của bạn bằng **Code → Download ZIP**.
+   **Public**. Không cần thêm Lab Coach làm collaborator để xem bài. Tải repo của bạn bằng **Code → Download ZIP**.
    Nếu link repo mẫu báo 404 **trong buổi lab**, kiểm tra lại link chính thức và báo Lab Coach; bạn không cần được mời
    riêng để đọc repo mẫu sau khi nó đã public.
 2. Giải nén ZIP để lấy [notebook](notebooks/day8-colab.ipynb), vào Colab chọn **File → Upload notebook** và chọn file `notebooks/day8-colab.ipynb`. Sau đó tải **ZIP repo riêng** lên ở ô đầu, điền tên và **GitHub username**. Lệnh `init` tự cho bạn lộ trình A/B và chi phí S1/S2 ổn định theo username; Lab Coach không phát nhóm/kịch bản. Chạy thử AI trên frame demo theo ô tiếp theo.
 3. Mở [GUIDE.md](GUIDE.md) và [card CVAT](cards/cvat-card.md), làm theo từng khối. Máy bình thường có thể dùng terminal trong repo: `make verify-data`, `make init NAME="Họ Tên" GITHUB_USER=tai-khoan`. Windows không có `make`: `python -m lab8 init --name "Họ Tên" --github-user tai-khoan`.
-4. Cuối buổi, tải `submission.zip` từ Colab. Dùng GitHub Desktop **Clone repository** để có bản repo riêng trên máy, giải nén `submission/` vào bản clone đó, kiểm tra file rồi **Commit to main → Push origin**. Có thể dùng Git CLI tương đương. Thư mục **Download ZIP** không phải bản clone và không push trực tiếp được. Colab có thể xóa phiên và dữ liệu khi ngắt kết nối; tải bản đang làm về máy sau các mốc khóa.
+4. Cuối buổi, **sau cả hai mốc khóa**, tải `submission.zip` từ Colab. Dùng GitHub Desktop **Clone repository** để có bản repo trên máy, giải nén `submission/` vào bản clone đó, kiểm tra file rồi **Commit to main → Push origin**. Có thể dùng Git CLI tương đương. Thư mục **Download ZIP** không phải bản clone và không push trực tiếp được. Colab có thể xóa phiên và dữ liệu khi ngắt kết nối; tải bản đang làm về máy sau các mốc khóa nhưng chỉ push khi đã hoàn tất bài.
 
 ## Lịch 240 phút
 
@@ -106,8 +105,9 @@ báo Lab Coach.
 
 - **Khóa trước, xem đáp án sau.** Reference chỉ phát sau khi bạn gửi mã khóa. Sau `make lock`, các file đã khóa không sửa
   nữa; mọi lệnh sau kiểm lại mã và báo lỗi nếu file đổi.
-- **Không push `reference/`.** `.gitignore` đã chặn thư mục này. Repo của bạn phải để private; chia sẻ đáp án
-  cho bạn cùng lớp chưa khóa làm hỏng phép đo của họ.
+- **Repo bài làm là public.** Chỉ push bài sau cả hai mốc khóa; không xem bài của người khác trước khi tự khóa. Không
+  push `reference/`, các gói đáp án, token/mật khẩu hoặc dữ liệu cá nhân ngoài phần bài yêu cầu. `.gitignore` đã chặn
+  `reference/`; chia sẻ đáp án cho bạn cùng lớp chưa khóa làm hỏng phép đo của họ.
 - **Không sửa `data/`.** `make verify-data` kiểm từng file theo `data/SHA256SUMS`.
 - **Ca card không nói tới:** ghi `escalated` vào `decision_log.csv` và hỏi Lab Coach. Không tự đặt luật.
 - **Debrief không gắn tên.** Không hỏi bạn khác ra số nào.
