@@ -1,0 +1,18 @@
+round,frame_id,object,action,rule_or_reason
+1,frame_0099.jpg,xe tải nền tối góc trên phải,added,Thấy rõ cabin và đèn hậu; model bỏ sót hoàn toàn — FN điển hình với xe lớn phần lớn bị che
+1,frame_0099.jpg,xe con bên phải gần mép ảnh,added,Còn hơn nửa thân xe trong ảnh — theo guideline xe bị cắt ở mép vẫn gán nhãn phần nhìn thấy
+1,frame_0107.jpg,xe van màu xám ở làn giữa,added,Model gộp làm một box với xe phía sau; tách thành 2 box riêng — hai xe đứng sát nhau phải vẽ riêng
+1,frame_0107.jpg,box FP trên dải phân cách,deleted,Model nhận nhầm cụm biển báo phát sáng thành xe; theo guideline biển báo không gán nhãn
+1,frame_0182.jpg,xe SUV chỉ thấy đèn hậu trái,added,Đoán được đường viền thân xe quanh cụm đèn; vẽ box theo phần thân ước lượng
+1,frame_0187.jpg,xe góc dưới phải ngoài cùng,added,Xe di chuyển nhanh gây nhoè — theo guideline vẫn gán nhãn box ôm vùng nhoè của thân xe
+1,frame_0187.jpg,xe bị cắt góc giữa dưới cùng,added,Chỉ thấy nửa thân xe do góc camera; vẽ box cho phần nằm trong ảnh theo guideline xe ở mép
+1,frame_0227.jpg,box FP vệt đèn pha dưới đường,deleted,Là ánh sáng phản chiếu xuống mặt đường; theo guideline không gán nhãn vệt đèn chiếu xuống
+1,frame_0270.jpg,xe tải đầu kéo hạng nặng,edited,Model chỉ bao cabin; mở rộng box ôm cả thùng xe phía sau — xe từ 4 bánh trở lên kể cả đầu kéo
+1,frame_0312.jpg,hai xe bus sát nhau bên phải,edited,Model gộp 2 xe thành 1 box; tách thành 2 box riêng biệt theo guideline hai xe đứng sát nhau
+1,frame_0312.jpg,xe bán tải bị xe tải che phần đầu,added,Vẫn thấy nửa sau và bánh xe — xe bị che một phần vẫn gán nhãn phần nhìn thấy
+1,frame_0326.jpg,21 xe mới thêm toàn bộ lô,added,Model chỉ đề xuất 15 box; quét thủ công và thêm 21 box còn thiếu — frame mật độ cao nhất
+1,frame_0331.jpg,3 box FP cột đèn đường,deleted,Model nhận nhầm 3 cột đèn đường sáng thành xe; theo guideline đèn đường không gán nhãn
+1,frame_0331.jpg,xe van trắng bị cắt mép trái,added,Box mới cho phần thân xe trong ảnh; chỉ thấy khoảng 40% nhưng đủ nhận dạng
+1,frame_0369.jpg,24 xe thêm mới,added,Model đề xuất 14 box; thêm 24 box cho toàn bộ xe còn thiếu — frame góc rộng, nhiều xe xa
+1,frame_0380.jpg,xe máy nhỏ giữa hai xe con,deleted,Là xe máy; theo guideline chỉ gán nhãn xe từ 4 bánh trở lên
+1,frame_0392.jpg,xe tải nền tối phía sau,added,Chỉ thấy đèn hậu nhưng đường viền thân xe đoán được; vẽ box theo phần thân ước lượng quanh cụm đèn
